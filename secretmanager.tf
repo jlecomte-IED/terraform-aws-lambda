@@ -27,6 +27,6 @@ resource "aws_iam_role_policy_attachment" "secrets_manager_get_secret" {
   count      = length(var.secret_managers)
   depends_on = [aws_iam_policy.secrets_manager_get_secret]
 
-  role       = aws_iam_role.lambda
+  role       = aws_iam_role.lambda.name
   policy_arn = aws_iam_policy.secrets_manager_get_secret[count.index].arn
 }
