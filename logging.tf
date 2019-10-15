@@ -33,7 +33,7 @@ resource "aws_cloudwatch_log_subscription_filter" "logs_to_kibana" {
 
 resource "aws_iam_policy" "lambda_logging" {
   description = "Policy to allow the lambda to create and publish logs in cloudwatch"
-  name        = "${var.stage}-${var.app_name}-lambda-logs"
+  name        = "${var.stage}-${var.app_name}-${var.lambda_cannonicalname}-lambda-logs"
   policy      = data.aws_iam_policy_document.lambda_logging.json
 }
 
