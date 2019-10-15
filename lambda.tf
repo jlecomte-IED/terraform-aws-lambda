@@ -63,9 +63,7 @@ resource "aws_lambda_function" "lambda" {
   tags = "${var.common_tags}"
 
   environment {
-    variables = {
-      STAGE = var.stage
-    }
+    variables = var.environment
   }
 
   role = aws_iam_role.lambda.arn
