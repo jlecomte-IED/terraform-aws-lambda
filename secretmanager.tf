@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "secrets_manager_get_secret" {
 
 resource "aws_iam_policy" "secrets_manager_get_secret" {
   count  = length(var.secret_managers)
-  name   = "${local.camel_app_name}SecretManager${title(var.stage)}-${var.secret_managers[count.index]}"
+  name   = "SecretManager-${var.app_name}-${var.stage}-${var.lambda_cannonicalname}--${var.secret_managers[count.index]}"
   policy = data.aws_iam_policy_document.secrets_manager_get_secret[count.index].json
 }
 
