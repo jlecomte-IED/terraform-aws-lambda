@@ -49,11 +49,11 @@ resource "aws_lambda_function" "lambda" {
   s3_bucket = data.aws_s3_bucket.deployment_bucket.id
   s3_key    = var.lambda_bucket_key
 
-  handler = "functions/migrate.handler"
-  runtime = "nodejs10.x"
+  handler = var.lambda_handler
+  runtime = var.lambda_runtime
 
-  timeout     = 60
-  memory_size = 1024
+  timeout     = var.lambda_timeout
+  memory_size = var.lambda_memory_size
 
   vpc_config {
     subnet_ids         = var.vpc["subnet_ids"]
