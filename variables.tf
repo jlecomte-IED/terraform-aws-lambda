@@ -49,6 +49,24 @@ variable "lambda_handler" {
   description = "the handler called by the lambda"
 }
 
+variable "lambda_runtime" {
+  type        = "string"
+  description = "the runtime used by the lambda"
+  default     = "nodejs10.x"
+}
+
+variable "lambda_timeout" {
+  type        = number
+  description = "the lambda timeout"
+  default     = 60
+}
+
+variable "lambda_memory_size" {
+  type        = number
+  description = "the lambda timeout"
+  default     = 1024
+}
+
 variable "lambda_bucket" {
   type        = "string"
   description = "the bucket containing the lambda function"
