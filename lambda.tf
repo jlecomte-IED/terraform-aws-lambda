@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "role_policy" {
 }
 
 resource "aws_iam_role" "lambda" {
-  name               = local.lambda_function_name
+  name               = local.lambda_role_name
   assume_role_policy = data.aws_iam_policy_document.role_policy.json
 }
 
