@@ -55,6 +55,12 @@ variable "lambda_runtime" {
   default     = "nodejs10.x"
 }
 
+variable "lambda_layers" {
+  type = "list"
+  description = "the list of custom layers which can be used by the lambda"
+  default = [] 
+}
+
 variable "lambda_timeout" {
   type        = number
   description = "the lambda timeout"

@@ -51,7 +51,8 @@ resource "aws_lambda_function" "lambda" {
 
   handler = var.lambda_handler
   runtime = var.lambda_runtime
-
+  layers = var.lambda_layers
+  
   timeout     = var.lambda_timeout
   memory_size = var.lambda_memory_size
 
