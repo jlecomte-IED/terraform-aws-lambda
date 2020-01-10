@@ -1,13 +1,15 @@
-# terraform-aws-lambda
+﻿# terraform-aws-lambda
 
-Description terraform module for deploying a lambda aws (lambda, cloudwatch) in a blink ⚡️
+Description : terraform module for deploying a lambda aws (lambda, cloudwatch) in a blink ⚡️
+
+The module inludes the capability to deploy a lambda in PHP thanks to custom layers.
 
 ## example
 
 ```hcl
-module "ied-terraform-aws-lambda-access-right-events" {
-  source  = "app.terraform.io/ied/lambda/aws"
-  version = "~>1.1.2"
+module "lambda-deployer" {
+  source = "app.terraform.io/ied/lambda/aws"
+  version = "~>2.1.0"
 
   common_tags = local.common_tags
   app_id      = local.app_id
@@ -18,11 +20,13 @@ module "ied-terraform-aws-lambda-access-right-events" {
   security_account_arn = var.account_arn_list["security"]
   default_account_arn  = var.account_arn_list[var.stage]
 
-  lambda_cannonicalname = "access-right-events"
-  lambda_filepath       = "../../back-end/lambda.zip"
+  lambda_cannonicalname = "release-name-generator"
+  lambda_filepath       = "lambda.zip"
   lambda_bucket         = var.backend_s3_bucket
   lambda_bucket_key     = var.backend_s3_key
-  lambda_handler        = "functions/access_right_events/index.handler"
+  lambda_handler        = "index.php"
+  lambda_runtime        = "provided"
+  lambda_layers         = "arn:aws:lambda:eu-central-1:209497400698:layer:php-74:1"
 
   lambda_timeout = 30
 
@@ -34,5 +38,5 @@ module "ied-terraform-aws-lambda-access-right-events" {
   environment = {
     STAGE = var.stage
   }
-}
+ }
 ```
