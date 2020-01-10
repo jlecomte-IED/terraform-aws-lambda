@@ -1,8 +1,8 @@
-# terraform-aws-lambda
+﻿# terraform-aws-lambda
 
-Description terraform module for deploying a lambda aws (lambda, cloudwatch) in a blink ⚡️
+Description : terraform module for deploying a lambda aws (lambda, cloudwatch) in a blink ⚡️
 
-The module includes the capability to launch PHP lambda thanks to custom runtimes and layers. 
+The module inludes the capability to deploy a lambda in PHP thanks to custom layers.
 
 ## example
 
