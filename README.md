@@ -8,7 +8,8 @@ The module inludes the capability to deploy a lambda in PHP thanks to custom lay
 
 ```hcl
 module "lambda-deployer" {
-  source = "./terraform-aws-lambda"
+  source = "app.terraform.io/ied/lambda/aws"
+  version = "~>2.1.0"
 
   common_tags = local.common_tags
   app_id      = local.app_id
