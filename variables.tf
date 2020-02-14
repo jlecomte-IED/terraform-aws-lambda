@@ -111,7 +111,7 @@ variable "environment" {
   description = "key value map of environment variables to give to the lambda"
 }
 
-variable "use_deadletter_queue" {
+variable "enable_dead_letter_queue" {
   type    = bool
   default = false
 }

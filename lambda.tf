@@ -68,9 +68,9 @@ resource "aws_lambda_function" "lambda" {
   }
 
   dynamic dead_letter_config {
-    for_each = var.use_deadletter_queue ? [true] : []
+    for_each = var.enable_dead_letter_queue ? [true] : []
     content {
-      target_arn = aws_sqs_queue.lambda_dead_letter_queue.arn
+      target_arn = aws_sqs_queue.lambda_dead_letter_queue[0].arn
     }
   }
 
