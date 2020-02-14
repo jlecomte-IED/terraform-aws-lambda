@@ -18,3 +18,7 @@ output "lambda_version" {
 output "lambda_role_name" {
   value = aws_iam_role.lambda.name
 }
+
+output "sqs_dead_letter_queue_arn" {
+  value = aws_sqs_queue.lambda_dead_letter_queue[0].arn
+}
