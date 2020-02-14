@@ -51,8 +51,8 @@ resource "aws_lambda_function" "lambda" {
 
   handler = var.lambda_handler
   runtime = var.lambda_runtime
-  layers = var.lambda_layers
-  
+  layers  = var.lambda_layers
+
   timeout     = var.lambda_timeout
   memory_size = var.lambda_memory_size
 
@@ -61,10 +61,17 @@ resource "aws_lambda_function" "lambda" {
     security_group_ids = var.vpc["security_group_ids"]
   }
 
-  tags = "${var.common_tags}"
+  tags = var.common_tags
 
   environment {
     variables = var.environment
+  }
+
+  dynamic dead_letter_config {
+    for_each = var.use_deadletter_queue ? [true] : []
+    content {
+      target_arn = aws_sqs_queue.lambda_dead_letter_queue.arn
+    }
   }
 
   role = aws_iam_role.lambda.arn

@@ -56,9 +56,9 @@ variable "lambda_runtime" {
 }
 
 variable "lambda_layers" {
-  type = "list"
+  type        = "list"
   description = "the list of custom layers which can be used by the lambda"
-  default = [] 
+  default     = []
 }
 
 variable "lambda_timeout" {
@@ -109,4 +109,9 @@ variable "secret_managers" {
 variable "environment" {
   type        = "map"
   description = "key value map of environment variables to give to the lambda"
+}
+
+variable "use_deadletter_queue" {
+  type    = bool
+  default = false
 }
