@@ -38,7 +38,8 @@ resource "aws_iam_role_policy_attachment" "lambda_vpc_access" {
 resource "aws_lambda_function" "lambda" {
   depends_on = [
     aws_iam_role.lambda,
-    aws_cloudwatch_log_group.lambda
+    aws_cloudwatch_log_group.lambda,
+    aws_iam_role_policy_attachment.lambda_publish_to_sqs_dlq
   ]
 
   function_name    = local.lambda_function_name
