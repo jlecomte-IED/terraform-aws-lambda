@@ -8,7 +8,7 @@ resource "aws_sqs_queue" "lambda_dead_letter_queue" {
 data "aws_iam_policy_document" "lambda_dead_letter_queue" {
   count = "${var.enable_dead_letter_queue ? 1 : 0}"
   statement {
-    sid = "Access-${local.lambda_function_name}-DLQ"
+    sid = "LambdaAccessDLQ"
     actions = [
       "sqs:SendMessage",
       "sqs:GetQueueUrl",
@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "lambda_dead_letter_queue" {
 
 resource "aws_iam_policy" "lambda_publish_to_sqs_dlq" {
   count  = "${var.enable_dead_letter_queue ? 1 : 0}"
-  name   = "${var.stage}-${var.app_name}-lambda-publish-to-sqs-dlq"
+  name   = "${local.lambda_function_name}-publish-to-sqs-dlq"
   policy = data.aws_iam_policy_document.lambda_dead_letter_queue[0].json
 }
 
