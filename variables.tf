@@ -83,6 +83,22 @@ variable "lambda_bucket_key" {
   description = "the path to the lambda.zip file"
 }
 
+
+variable "lambda_reserved_concurrent_executions" {
+  type    = number
+  default = 100
+}
+
+variable "lambda_max_retry" {
+  type    = number
+  default = 2
+}
+
+variable "lambda_maximum_event_age_in_seconds" {
+  type    = number
+  default = 60
+}
+
 variable "enable_invocation" {
   type        = bool
   default     = false

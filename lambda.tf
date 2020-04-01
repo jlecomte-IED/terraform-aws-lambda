@@ -64,6 +64,8 @@ resource "aws_lambda_function" "lambda" {
 
   tags = var.common_tags
 
+  reserved_concurrent_executions = var.lambda_reserved_concurrent_executions
+
   environment {
     variables = var.environment
   }
@@ -76,6 +78,12 @@ resource "aws_lambda_function" "lambda" {
   }
 
   role = aws_iam_role.lambda.arn
+}
+
+resource "aws_lambda_function_event_invoke_config" "lambda" {
+  function_name                = aws_lambda_function.lambda.function_name
+  maximum_retry_attempts       = var.lambda_max_retry
+  maximum_event_age_in_seconds = var.lambda_maximum_event_age_in_seconds
 }
 
 # Call the lambda function
