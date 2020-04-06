@@ -39,6 +39,7 @@ resource "aws_lambda_function" "lambda" {
   depends_on = [
     aws_iam_role.lambda,
     aws_cloudwatch_log_group.lambda,
+    aws_sqs_queue.lambda_dead_letter_queue,
     aws_iam_role_policy_attachment.lambda_publish_to_sqs_dlq
   ]
 

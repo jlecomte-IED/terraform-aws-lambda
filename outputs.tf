@@ -8,7 +8,7 @@ output "lambda_arn" {
 
 output "lambda_invocation_result" {
   description = "String result of Lambda execution"
-  value       = "${data.aws_lambda_invocation.run_lambda[0].result}"
+  value       = var.enable_invocation ? data.aws_lambda_invocation.run_lambda[0].result : null
 }
 
 output "lambda_version" {
@@ -20,5 +20,5 @@ output "lambda_role_name" {
 }
 
 output "sqs_dead_letter_queue_arn" {
-  value = aws_sqs_queue.lambda_dead_letter_queue[0].arn
+  value = var.enable_dead_letter_queue ? aws_sqs_queue.lambda_dead_letter_queue[0].arn : null
 }
