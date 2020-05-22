@@ -86,7 +86,7 @@ variable "lambda_bucket_key" {
 
 variable "lambda_reserved_concurrent_executions" {
   type    = number
-  default = 100
+  default = null
 }
 
 variable "lambda_max_retry" {
