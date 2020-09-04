@@ -46,7 +46,7 @@ resource "aws_lambda_function" "lambda" {
   function_name    = local.lambda_function_name
   source_code_hash = filebase64sha256(var.lambda_filepath)
 
-  publish = true
+  publish = var.lambda_publish
 
   s3_bucket = data.aws_s3_bucket.deployment_bucket.id
   s3_key    = var.lambda_bucket_key

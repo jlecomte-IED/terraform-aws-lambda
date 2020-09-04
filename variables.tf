@@ -99,6 +99,11 @@ variable "lambda_maximum_event_age_in_seconds" {
   default = 60
 }
 
+variable "lambda_publish" {
+  type    = bool
+  default = false
+}
+
 variable "enable_invocation" {
   type        = bool
   default     = false
