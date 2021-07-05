@@ -1,7 +1,7 @@
 
 resource "aws_sqs_queue" "lambda_dead_letter_queue" {
   count = var.enable_dead_letter_queue ? 1 : 0
-  name  = "${local.lambda_function_name}-dlq"
+  name  = local.lambda_function_name
   tags  = var.common_tags
 }
 
@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "lambda_dead_letter_queue" {
 
 resource "aws_iam_policy" "lambda_publish_to_sqs_dlq" {
   count  = var.enable_dead_letter_queue ? 1 : 0
-  name   = "${local.lambda_function_name}-publish-to-sqs-dlq"
+  name   = local.lambda_function_name
   policy = data.aws_iam_policy_document.lambda_dead_letter_queue[0].json
 }
 
