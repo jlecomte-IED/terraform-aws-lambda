@@ -89,9 +89,10 @@ resource "aws_lambda_function_event_invoke_config" "lambda" {
 
 # Call the lambda function
 data "aws_lambda_invocation" "run_lambda" {
-  count         = var.enable_invocation ? 1 : 0
+  count = var.enable_invocation ? 1 : 0
+
   depends_on    = [aws_lambda_function.lambda]
-  function_name = "${aws_lambda_function.lambda.function_name}"
+  function_name = aws_lambda_function.lambda.function_name
 
   input = <<JSON
 {}
