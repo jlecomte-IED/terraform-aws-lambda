@@ -4,6 +4,8 @@ Description : terraform module for deploying a lambda aws (lambda, cloudwatch) i
 
 The module inludes the capability to deploy a lambda in PHP thanks to custom layers.
 
+
+
 ## example
 
 ```hcl
@@ -42,3 +44,164 @@ module "lambda-deployer" {
   }
  }
 ```
+
+## Required Inputs
+
+These variables must be set in the `module` block when using this module.
+
+### app_id **`string`**
+
+Description: The id of the application
+
+### app_name **`string`**
+
+Description: The name of the application
+
+### default_account_arn **`string`**
+
+Description: The security account arn
+
+### environment **`map(string)`**
+
+Description: key value map of environment variables to give to the lambda
+
+### lambda_bucket **`string`**
+
+Description: the bucket containing the lambda function
+
+### lambda_bucket_key **`string`**
+
+Description: the path to the lambda.zip file
+
+### lambda_cannonicalname **`string`**
+
+Description: the name used in computation of the lambda name - <stage>-<app_name>-<cannonical_name>
+
+### lambda_filepath **`string`**
+
+Description: the path to the lambda.zip file
+
+### lambda_handler **`string`**
+
+Description: the handler called by the lambda
+
+### lambda_logs_to_kibana_name **`string`**
+
+Description: name of the lambda to log in kibana
+
+### lambda_reserved_concurrent_executions **`number`**
+
+Description: (no description specified)
+
+### logs_to_kibana_subscription_filter_name **`string`**
+
+Description: the kibana subscription filter name
+
+### security_account_arn **`string`**
+
+Description: The security account arn
+
+### stage **`string`**
+
+Description: The deploy environment in [prod, dev, preprod]
+
+### vpc **`object({ subnet_ids = list(string) security_group_ids = list(string) })`**
+
+Description: expected subnet_ids => [] and security_group_ids => []
+
+## Optional Inputs
+
+These variables have default values and don't have to be set to use this module. You may set these variables to override their default values.
+
+### common_tags **`map(string)`**
+
+Description: a list of tags set on the different resources
+
+Default: `{}`
+
+### enable_dead_letter_queue **`bool`**
+
+Description: (no description specified)
+
+Default: `false`
+
+### enable_invocation **`bool`**
+
+Description: whether the lambda is invocated after creation
+
+Default: `false`
+
+### lambda_layers **`list(string)`**
+
+Description: the list of custom layers which can be used by the lambda
+
+Default: `[]`
+
+### lambda_max_retry **`number`**
+
+Description: (no description specified)
+
+Default: `2`
+
+### lambda_maximum_event_age_in_seconds **`number`**
+
+Description: (no description specified)
+
+Default: `60`
+
+### lambda_memory_size **`number`**
+
+Description: the lambda timeout
+
+Default: `1024`
+
+### lambda_publish **`bool`**
+
+Description: whether the lambda is published or not
+
+Default: `false`
+
+### lambda_runtime **`string`**
+
+Description: the runtime used by the lambda
+
+Default: `"nodejs10.x"`
+
+### lambda_timeout **`number`**
+
+Description: the lambda timeout
+
+Default: `60`
+
+### secret_managers **`list(string)`**
+
+Description: list of the secret manager the lambda can read
+
+Default: `[]` 
+
+
+## Output
+
+### lambda_arn
+
+Description: (no description specified)
+
+### lambda_function_name
+
+Description: (no description specified)
+
+### lambda_invocation_result
+
+Description: String result of Lambda execution
+
+### lambda_role_name
+
+Description: (no description specified)
+
+### lambda_version
+
+Description: (no description specified)
+
+### sqs_dead_letter_queue_arn
+
+Description: (no description specified)
