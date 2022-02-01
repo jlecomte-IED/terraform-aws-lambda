@@ -17,14 +17,17 @@ data "aws_iam_policy_document" "lambda_logging" {
 }
 
 data "aws_lambda_function" "logs_to_kibana" {
+  provider      = aws.logs
   function_name = var.lambda_logs_to_kibana_name
 }
 
 resource "aws_cloudwatch_log_group" "lambda" {
-  name = "/aws/lambda/${var.stage}-${var.app_name}-${var.lambda_cannonicalname}"
+  provider = aws.logs
+  name     = "/aws/lambda/${var.stage}-${var.app_name}-${var.lambda_cannonicalname}"
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "logs_to_kibana" {
+  provider        = aws.logs
   name            = var.logs_to_kibana_subscription_filter_name
   log_group_name  = aws_cloudwatch_log_group.lambda.name
   filter_pattern  = ""
