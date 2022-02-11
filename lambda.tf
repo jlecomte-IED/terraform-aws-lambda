@@ -87,19 +87,15 @@ resource "aws_lambda_function_event_invoke_config" "lambda" {
   maximum_event_age_in_seconds = var.lambda_maximum_event_age_in_seconds
 }
 
-resource "time_sleep" "invocation_wait" {
-  count      = var.enable_invocation ? 1 : 0
-  depends_on = [aws_lambda_function.lambda]
-
-  destroy_duration = "30s"
-}
 
 # Call the lambda function
-data "aws_lambda_invocation" "run_lambda" {
+resource "aws_lambda_invocation" "run_lambda" {
   count = var.enable_invocation ? 1 : 0
 
-  depends_on    = [time_sleep.invocation_wait[0]]
   function_name = aws_lambda_function.lambda.function_name
+  triggers = {
+    redeployment = filebase64sha256(var.lambda_filepath)
+  }
 
   input = <<JSON
 {}
