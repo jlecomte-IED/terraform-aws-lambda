@@ -114,6 +114,12 @@ variable "enable_invocation" {
   description = "whether the lambda is invocated after creation"
 }
 
+variable "invocation_payload" {
+  type        = string
+  default     = "{}"
+  description = "JSON encoded payload to pass to invocation when enabled"
+}
+
 variable "lambda_logs_to_kibana_name" {
   type        = string
   description = "name of the lambda to log in kibana"

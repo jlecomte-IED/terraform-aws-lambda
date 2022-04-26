@@ -97,7 +97,5 @@ resource "aws_lambda_invocation" "run_lambda" {
     redeployment = filebase64sha256(var.lambda_filepath)
   }
 
-  input = <<JSON
-{}
-JSON
+  input = var.invocation_payload
 }
