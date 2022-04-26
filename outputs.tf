@@ -8,7 +8,7 @@ output "lambda_arn" {
 
 output "lambda_invocation_result" {
   description = "String result of Lambda execution"
-  value       = var.enable_invocation ? data.aws_lambda_invocation.run_lambda[0].result : null
+  value       = var.enable_invocation ? aws_lambda_invocation.run_lambda[0].result : null
 }
 
 output "lambda_version" {
