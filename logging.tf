@@ -24,6 +24,7 @@ data "aws_lambda_function" "logs_to_kibana" {
 resource "aws_cloudwatch_log_group" "lambda" {
   provider = aws.logs
   name     = "/aws/lambda/${var.stage}-${var.app_name}-${var.lambda_cannonicalname}"
+  retention_in_days = 90
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "logs_to_kibana" {
