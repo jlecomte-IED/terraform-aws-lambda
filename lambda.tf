@@ -44,15 +44,28 @@ resource "aws_lambda_function" "lambda" {
   ]
 
   function_name    = local.lambda_function_name
+  description      = var.description
   source_code_hash = filebase64sha256(var.lambda_filepath)
 
   publish = var.lambda_publish
 
-  s3_bucket = data.aws_s3_bucket.deployment_bucket.id
-  s3_key    = var.lambda_bucket_key
+  s3_bucket = var.package_type != "Zip" ? null : data.aws_s3_bucket.deployment_bucket.id
+  s3_key    = var.package_type != "Zip" ? null : var.lambda_bucket_key
+  image_uri = var.package_type != "Zip" ? var.image_uri : null
+  package_type = var.package_type
+  architectures = var.architectures
+  dynamic "image_config" {
+    for_each = length(var.image_config_entry_point) > 0 || length(var.image_config_command) > 0 || var.image_config_working_directory != null ? [true] : []
+    content {
+      entry_point       = var.image_config_entry_point
+      command           = var.image_config_command
+      working_directory = var.image_config_working_directory
+    }
+  }
 
-  handler = var.lambda_handler
-  runtime = var.lambda_runtime
+  handler = var.package_type != "Zip" ? null : var.lambda_handler
+  runtime = var.package_type != "Zip" ? null : var.lambda_runtime
+
   layers  = var.lambda_layers
 
   timeout     = var.lambda_timeout

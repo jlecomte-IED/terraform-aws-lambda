@@ -40,11 +40,18 @@ variable "default_account_arn" {
 variable "lambda_filepath" {
   type        = string
   description = "the path to the lambda.zip file"
+  default     = ""
 }
 
 variable "lambda_cannonicalname" {
   type        = string
   description = "the name used in computation of the lambda name - <stage>-<app_name>-<cannonical_name>"
+}
+
+variable "description" {
+  description = "Description of your Lambda Function (or Layer)"
+  type        = string
+  default     = ""
 }
 
 variable "lambda_handler" {
@@ -79,11 +86,13 @@ variable "lambda_memory_size" {
 variable "lambda_bucket" {
   type        = string
   description = "the bucket containing the lambda function"
+  default     = null
 }
 
 variable "lambda_bucket_key" {
   type        = string
   description = "the path to the lambda.zip file"
+  default     = null
 }
 
 
@@ -145,4 +154,40 @@ variable "environment" {
 variable "enable_dead_letter_queue" {
   type    = bool
   default = false
+}
+
+variable "package_type" {
+  description = "The Lambda deployment package type. Valid options: Zip or Image"
+  type        = string
+  default     = "Zip"
+}
+
+variable "architectures" {
+  description = "Instruction set architecture for your Lambda function. Valid values are [\"x86_64\"] and [\"arm64\"]."
+  type        = list(string)
+  default     = null
+}
+
+variable "image_uri" {
+  description = "The ECR image URI containing the function's deployment package."
+  type        = string
+  default     = null
+}
+
+variable "image_config_entry_point" {
+  description = "The ENTRYPOINT for the docker image"
+  type        = list(string)
+  default     = []
+
+}
+variable "image_config_command" {
+  description = "The CMD for the docker image"
+  type        = list(string)
+  default     = []
+}
+
+variable "image_config_working_directory" {
+  description = "The working directory for the docker image"
+  type        = string
+  default     = null
 }

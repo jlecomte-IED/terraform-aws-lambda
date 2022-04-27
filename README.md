@@ -4,8 +4,6 @@ Description : terraform module for deploying a lambda aws (lambda, cloudwatch) i
 
 The module inludes the capability to deploy a lambda in PHP thanks to custom layers.
 
-
-
 ## example
 
 ```hcl
@@ -43,6 +41,23 @@ module "lambda-deployer" {
     RELEASE = var.app_version
   }
  }
+```
+
+Lambda Functions from Container Image stored on AWS ECR
+
+```hcl
+module "lambda_function_container_image" {
+  source = "app.terraform.io/fulll/lambda/aws"
+  version = "~>10.133.0"
+
+  function_name = "my-lambda-existing-package-local"
+  description   = "My awesome lambda function"
+
+  create_package = false
+
+  image_uri    = "123456789123.dkr.ecr.eu-west-1.amazonaws.com/example:1.0"
+  package_type = "Image"
+}
 ```
 
 ## Required Inputs
@@ -139,19 +154,19 @@ Default: `[]`
 
 ### lambda_max_retry **`number`**
 
-Description: (no description specified)
+Description: (Optional) Maximum number of times to retry when the function returns an error. Valid values between 0 and 2.
 
 Default: `2`
 
 ### lambda_maximum_event_age_in_seconds **`number`**
 
-Description: (no description specified)
+Description: (Optional) Maximum age of a request that Lambda sends to a function for processing in seconds. Valid values between 60 and 21600.
 
 Default: `60`
 
 ### lambda_memory_size **`number`**
 
-Description: the lambda timeout
+Description: memory size
 
 Default: `1024`
 
@@ -177,8 +192,13 @@ Default: `60`
 
 Description: list of the secret manager the lambda can read
 
-Default: `[]` 
+Default: `[]`
 
+### image_uri **`string`**
+
+Description: The ECR image URI containing the function's deployment package
+
+Default: `Null`
 
 ## Output
 
