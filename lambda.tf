@@ -45,7 +45,7 @@ resource "aws_lambda_function" "lambda" {
 
   function_name    = local.lambda_function_name
   description      = var.description
-  source_code_hash = filebase64sha256(var.lambda_filepath)
+  source_code_hash = filebase64sha256(var.package_type != "Zip" ? var.lambda_filepath : var.image_uri)
 
   publish = var.lambda_publish
 
@@ -107,7 +107,7 @@ resource "aws_lambda_invocation" "run_lambda" {
 
   function_name = aws_lambda_function.lambda.function_name
   triggers = {
-    redeployment = filebase64sha256(var.lambda_filepath)
+    redeployment = filebase64sha256(var.package_type != "Zip" ? var.lambda_filepath : var.image_uri)
   }
 
   input = var.invocation_payload
